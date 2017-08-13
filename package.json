@@ -4,11 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node scraper.js"
   },
   "dependencies": {
     "chalk": "2.0.1",
     "dotenv": "4.0.0",
+    "menubar": "5.2.3",
     "node-fetch": "1.7.1",
     "node-notifier": "5.1.2",
     "scrape-it": "3.3.2"
