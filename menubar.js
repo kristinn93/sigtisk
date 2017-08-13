@@ -1,6 +1,12 @@
 const menubar = require('menubar');
 const path = require('path');
 const BrowserWindow = require('electron').BrowserWindow;
+const fetch = require('node-fetch');
+const WebSocket = require('ws');
+var fs = require('fs');
+
+const upArrow = './up.png';
+const downArrow = './down.png';
 
 const mb = menubar({
   tooltip: 'Wow such toolbar',
@@ -26,4 +32,31 @@ function createWindow() {
   });
 }
 
-mb.on('ready', createWindow);
+mb.on('ready', function ready() {
+  createWindow();
+  mb.tray.setTitle('Starting up');
+  setTitleBar();
+  setInterval(setTitleBar, 3000);
+});
+
+let lastValue = 0;
+const setTitleBar = () => {
+  fetch('https://www.cryptopia.co.nz/Exchange/GetListData?_=1502053453124')
+    .then(r => r.json())
+    .then(data => {
+      return data.filter(item => item.Symbol === 'SIGT' && item.BaseSymbol === 'BTC');
+    })
+    .then(data => {
+      if (data.length === 1) {
+        const lastTrade = data[0].LastTrade;
+        if (lastTrade < lastValue) {
+          mb.tray.setImage(downArrow);
+        }
+        if (lastTrade > lastValue) {
+          mb.tray.setImage(upArrow);
+        }
+        lastValue = lastTrade;
+        mb.tray.setTitle(lastTrade.toString());
+      }
+    });
+};
