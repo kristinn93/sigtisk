@@ -30,7 +30,7 @@ let make _children => {
   let toggleInput _ {ReasonReact.state: state} => ReasonReact.Update {...state, showInput: true};
   let updateCurrency enqueue () =>
     Js.Promise.(
-      GetCurrentIsk.getCurrentUsdValueForIsk () |>
+      Currencies.Isk.getCurrentUsdValue () |>
       then_ (
         fun res =>
           enqueue
@@ -41,7 +41,7 @@ let make _children => {
     ...component,
     didMount: fun {enqueue, state} => {
       Js.Promise.(
-        GetCurrentIsk.getCurrentUsdValueForIsk () |>
+        Currencies.Isk.getCurrentUsdValue () |>
         then_ (
           fun res =>
             enqueue
@@ -83,41 +83,45 @@ let make _children => {
           )
         </div>
         <div>
-          <div>
-            (
-              ReasonReact.stringToElement (
-                Printf.sprintf "USD: %s" (string_of_float state.currentIsk)
-              )
-            )
-          </div>
-          <div>
-            (
-              ReasonReact.stringToElement (
-                Printf.sprintf
-                  "SIGT: %s"
+          <table>
+            <thead>
+              <tr>
+                <th> (ReasonReact.stringToElement "Currency") </th>
+                <th> (ReasonReact.stringToElement "Value") </th>
+                <th> (ReasonReact.stringToElement "Total ISK") </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> (ReasonReact.stringToElement "SIGT") </td>
+                <td>
                   (
-                    switch (Dom.Storage.getItem "SIGT" Dom.Storage.localStorage) {
-                    | Some value => value
-                    | None => string_of_float 0.
-                    }
+                    ReasonReact.stringToElement (
+                      switch (Dom.Storage.getItem "SIGT" Dom.Storage.localStorage) {
+                      | Some value => value
+                      | None => string_of_float 0.
+                      }
+                    )
                   )
-              )
-            )
-          </div>
-          <div>
-            (
-              ReasonReact.stringToElement (
-                Printf.sprintf
-                  "BTC: %s"
+                </td>
+                <td> (ReasonReact.stringToElement "SIGT") </td>
+              </tr>
+              <tr>
+                <td> (ReasonReact.stringToElement "BTC") </td>
+                <td>
                   (
-                    switch (Dom.Storage.getItem "BTC" Dom.Storage.localStorage) {
-                    | Some value => value
-                    | None => string_of_float 0.
-                    }
+                    ReasonReact.stringToElement (
+                      switch (Dom.Storage.getItem "BTC" Dom.Storage.localStorage) {
+                      | Some value => value
+                      | None => string_of_float 0.
+                      }
+                    )
                   )
-              )
-            )
-          </div>
+                </td>
+                <td> (ReasonReact.stringToElement "SIGT") </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
   }
