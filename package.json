@@ -1,22 +1,29 @@
 {
-  "name": "PriceCheck",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-    "start": "echo 'scraper or menubar'",
-    "scraper": "node scraper.js",
-    "menubar": "electron menubar.js"
-  },
+  "name": "menubar",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "chalk": "2.0.1",
-    "dotenv": "4.0.0",
-    "electron": "1.7.5",
-    "menubar": "5.2.3",
-    "node-fetch": "1.7.1",
-    "node-notifier": "5.1.2",
+    "bs-fetch": "0.1.1",
+    "bs-json": "0.2.1",
+    "electron": "^1.7.5",
+    "menubar": "^5.2.3",
+    "node-fetch": "^1.7.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "scrape-it": "3.3.2"
+    "reason-scripts": "0.6.6",
+    "ws": "^3.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "prepare": "npm link bs-platform",
+    "start-both": "concurrently 'yarn start' 'electron menubar.js'"
+  },
+  "devDependencies": {
+    "bs-jest": "^0.1.0",
+    "concurrently": "^3.5.0",
+    "reason-react": "^0.2.3"
   }
 }
