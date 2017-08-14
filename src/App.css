@@ -4,7 +4,45 @@
 
 .App-header {
   background-color: #222;
-  height: 40px;
-  padding: 20px;
+  height: 20px;
+  padding: 10px;
   color: white;
+}
+
+.inspector::after {
+  display: block;
+  content: '🕵️';
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  width: 10px; 
+  height: 10px;
+  transform: scale(1.2);
+  z-index: 10;
+}
+.changeamount {
+  /* display: none; */
+  width: 0px;
+  opacity: 0.001;
+  position: absolute;
+  top: 5px;
+  right: 4px;
+  transition: width 200ms ease-in-out 100ms;
+}
+
+.inspector:hover + .App-header .changeamount, .changeamount:hover {
+  /* display: block; */
+  opacity: 1;
+  width: 50%;
+  height: 21px;
+  transition: width 200ms ease-in-out 100ms;
+}
+
+.stupidtable {
+  color: white;
+  width: 100%;
+}
+
+.stupidtable > thead {
+  color:  #E1E1E1
 }

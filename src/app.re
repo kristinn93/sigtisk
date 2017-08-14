@@ -63,6 +63,7 @@ let make _children => {
     },
     render: fun {state, update, enqueue} =>
       <div className="App">
+        <span className="inspector" />
         <div className="App-header">
           (
             state.showInput ?
@@ -77,13 +78,13 @@ let make _children => {
                 </button>
                 <button onClick=(enqueue cancel)> (ReasonReact.stringToElement "Cancel") </button>
               </div> :
-              <button onClick=(enqueue toggleInput)>
+              <button className="changeamount" onClick=(enqueue toggleInput)>
                 (ReasonReact.stringToElement "Change amount")
               </button>
           )
         </div>
         <div>
-          <table>
+          <table className="stupidtable">
             <thead>
               <tr>
                 <th> (ReasonReact.stringToElement "Currency") </th>
