@@ -19,7 +19,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "prepare": "npm link bs-platform",
-    "start-both": "concurrently 'yarn start' 'electron menubar.js'"
+    "start-both": "concurrently 'yarn start' 'electron .'"
   },
   "devDependencies": {
     "bs-jest": "^0.1.0",

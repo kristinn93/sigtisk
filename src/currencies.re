@@ -1,8 +1,36 @@
 open Bs_fetch;
 
+type remoteFunc;
+
+external make : unit => remoteFunc = "" [@@bs.module "electron"];
+
+Js.log (make ());
+
+let foo () => [%bs.raw {|
+  window.require('electron').remote.require('./foo.js')()
+|}];
+
+Js.log (foo ());
+
 module Crypto = {
   type results = {symbol: string};
   let decodeCurrency json => Json.Decode.{symbol: json |> field "Symbol" string};
+  let getCurrentValues () =>
+    Js.Promise.(
+      fetchWithInit
+        "https://www.cryptopia.co.nz/Exchange/GetListData?_=1502053453124"
+        (
+          RequestInit.make
+            method_::Get
+            mode::NoCORS
+            headers::(
+              HeadersInit.make {"Accept": "application/json", "Content-Type": "application/json"}
+            )
+            ()
+        ) |>
+      /* then_ Response.json |> */
+      then_ (fun res => Js.log res |> resolve)
+    );
 };
 
 module Isk = {
